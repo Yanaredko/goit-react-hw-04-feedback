@@ -1,27 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../index.css';
 import Statistics from './Statistics.jsx';
 import FeedbackOptions from './FeedbackOptions.jsx';
 import Section from './Section.jsx';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    };
-  }
-
-  handleFeedback = (type) => {
-    this.setState((prevState) => ({
+function App() {
+  const [feedback, setFeedback] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
+  
+  const handleFeedback = (type) => {
+    setFeedback ((prevState) => ({
+      ...prevState,
       [type]: prevState[type] + 1,
     }));
   };
 
-  render() {
-    const { good, neutral, bad } = this.state;
+    const { good, neutral, bad } = feedback;
     const totalFeedback = good + neutral + bad;
     const positivePercentage = totalFeedback ? (good / totalFeedback) * 100 : 0;
     const hasFeedback = totalFeedback > 0;
@@ -30,8 +27,8 @@ class App extends Component {
       <div className="App">
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={{ good, neutral, bad }}
-            onLeaveFeedback={this.handleFeedback}
+            options={feedback}
+            onLeaveFeedback={handleFeedback}
           />
         </Section>
         <Section title="Statistics">
@@ -52,7 +49,6 @@ class App extends Component {
       </div>
     );
   }
-}
 
 export default App;
 
