@@ -21,17 +21,6 @@ function FeedbackApp() {
     const totalFeedback = good + neutral + bad;
     const positivePercentage = totalFeedback ? (good / totalFeedback) * 100 : 0;
 
-    
-
-    countPositiveFeedbackPercentage = () => {
-        const { good } = this.state;
-        const total = this.countTotalFeedback();
-        if (total === 0) {
-            return 0;
-        }
-        return (good / total) * 100; 
-    }
-
     return (
     <div>
       <h1>Please leave feedback</h1>
